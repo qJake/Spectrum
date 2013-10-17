@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SharpHue">
+      <HintPath>..\..\SharpHue\SharpHue\bin\Debug\SharpHue.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -53,6 +56,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\LightStatus.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Main.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -61,11 +68,26 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controls\LightStatus.xaml.cs">
+      <DependentUpon>LightStatus.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\Automate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Configure.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Now.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Schedule.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -75,8 +97,17 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pages\Automate.xaml.cs">
+      <DependentUpon>Automate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Configure.xaml.cs">
+      <DependentUpon>Configure.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Now.xaml.cs">
       <DependentUpon>Now.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Schedule.xaml.cs">
+      <DependentUpon>Schedule.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

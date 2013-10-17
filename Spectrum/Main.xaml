@@ -12,10 +12,10 @@
         <StackPanel Orientation="Horizontal">
             <Image Source="Resources/huelogo.png" Cursor="None" Width="123" Height="87" Panel.ZIndex="2" />
 
-            <TextBlock x:Name="NavNow" Text="Now" Style="{StaticResource Text-Header-MainNav}" />
-            <TextBlock x:Name="NavSchedule" Text="Schedule" Style="{StaticResource Text-Header-MainNav}" />
-            <TextBlock x:Name="NavAutomate" Text="Automate" Style="{StaticResource Text-Header-MainNav}" />
-            <TextBlock x:Name="NavConfigure" Text="Configure" Style="{StaticResource Text-Header-MainNav}" />
+            <TextBlock x:Name="NavNow" MouseUp="NavNow_MouseUp"  Text="Now" Style="{StaticResource Text-Header-MainNav}" />
+            <TextBlock x:Name="NavSchedule" MouseUp="NavSchedule_MouseUp" Text="Schedule" Style="{StaticResource Text-Header-MainNav}" />
+            <TextBlock x:Name="NavAutomate" MouseUp="NavAutomate_MouseUp" Text="Automate" Style="{StaticResource Text-Header-MainNav}" />
+            <TextBlock x:Name="NavConfigure" MouseUp="NavConfigure_MouseUp" Text="Configure" Style="{StaticResource Text-Header-MainNav}" />
         </StackPanel>
         
         <ContentControl x:Name="ControlContainer" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />

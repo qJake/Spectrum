@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SharpHue;
+using Spectrum.Controls;
 
 namespace Spectrum.Pages
 {
@@ -20,9 +22,27 @@ namespace Spectrum.Pages
     /// </summary>
     public partial class Now : UserControl
     {
+        private LightCollection lights { get; set; }
+
         public Now()
         {
             InitializeComponent();
+
+            lights = new LightCollection();
+
+            Refresh();
+        }
+
+        public void Refresh()
+        {
+            lights.Refresh();
+
+            LightContainer.Children.Clear();
+
+            foreach (var light in lights)
+            {
+                LightContainer.Children.Add(new LightStatus(light));
+            }
         }
     }
 }
