@@ -25,26 +25,56 @@ namespace Spectrum.Pages
     {
         private LightCollection lights { get; set; }
 
+        private List<Light> selectedLights = new List<Light>();
+
+        private Style SelectorActive;
+        private Style SelectorInactive;
+
         public Now()
         {
             InitializeComponent();
             lights = new LightCollection();
             Refresh();
+
+            SelectorActive = FindResource("Text-Selector-Active") as Style;
+            SelectorInactive = FindResource("Text-Selector-Inactive") as Style;
+
+            SetMode(true);
         }
 
         public void Refresh()
         {
+            foreach (LightStatus ctl in LightContainer.Children)
+            {
+                ctl.LightSelected -= LightSelected;
+            }
+
             lights.Refresh();
 
             LightContainer.Children.Clear();
 
             foreach (var light in lights)
             {
-                LightContainer.Children.Add(new LightStatus(light));
+                var status = new LightStatus(light);
+                status.LightSelected += LightSelected;
+                LightContainer.Children.Add(status);
             }
         }
 
-        private void Saturation_MouseUp(object sender, MouseButtonEventArgs e)
+        private void LightSelected(object sender)
+        {
+            selectedLights.Clear();
+
+            foreach (LightStatus ctl in LightContainer.Children)
+            {
+                if (ctl.Selected.IsChecked.HasValue && ctl.Selected.IsChecked.Value)
+                {
+                    selectedLights.Add(ctl.Light);
+                }
+            }
+        }
+
+        private void SelectorRGB_MouseUp(object sender, MouseButtonEventArgs e)
         {
             var mousePos = e.GetPosition((IInputElement)sender);
 
@@ -55,14 +85,12 @@ namespace Spectrum.Pages
             BriTop.Color = new Color() { A = 255, R = color.Color.R, G = color.Color.G, B = color.Color.B };
 
             new LightStateBuilder()
-                .For(lights[5])
+                .For(selectedLights)
                 .Hue((ushort)(color.H * 255))
                 .Saturation((byte)color.S)
                 .Brightness((byte)color.B)
                 .TurnOn()
                 .Apply();
-
-            Refresh();
         }
 
         private void SelectorCT_MouseUp(object sender, MouseButtonEventArgs e)
@@ -77,12 +105,41 @@ namespace Spectrum.Pages
             BriTop.Color = new Color() { A = 255, R = color.Color.R, G = color.Color.G, B = color.Color.B };
 
             new LightStateBuilder()
-                .For(lights[5])
+                .For(selectedLights)
                 .ColorTemperature((ushort)ct)
                 .TurnOn()
                 .Apply();
+        }
 
-            Refresh();
+        // TODO: Change this to an Enum or something like that
+        private void SetMode(bool isRgb)
+        {
+            if (isRgb)
+            {
+                SelectorCT.Visibility = Visibility.Collapsed;
+                SelectorRGB.Visibility = Visibility.Visible;
+
+                OptionRGB.Style = SelectorActive;
+                OptionCT.Style = SelectorInactive;
+            }
+            else
+            {
+                SelectorCT.Visibility = Visibility.Visible;
+                SelectorRGB.Visibility = Visibility.Collapsed;
+
+                OptionRGB.Style = SelectorInactive;
+                OptionCT.Style = SelectorActive;
+            }
+        }
+
+        private void OptionRGB_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            SetMode(true);
+        }
+
+        private void OptionCT_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            SetMode(false);
         }
     }
 }

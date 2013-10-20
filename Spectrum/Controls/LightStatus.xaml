@@ -5,16 +5,21 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:this="clr-namespace:Spectrum"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="36" d:DesignWidth="291">
+    
     <UserControl.Resources>
         <this:VisibilityConverter x:Key="VC" />
         <this:InverseVisibilityConverter x:Key="IVC" />
     </UserControl.Resources>
-    <Grid>        
-        <StackPanel Orientation="Horizontal">
-            <Ellipse x:Name="OnDot" Width="16" Height="16" Stroke="Black" StrokeThickness="2" Visibility="{Binding State.IsOn, Converter={StaticResource VC}}" Margin="5" />
-            <Ellipse Width="16" Height="16" Stroke="Black" StrokeThickness="2" StrokeDashArray="1.5" Visibility="{Binding State.IsOn, Converter={StaticResource IVC}}" Margin="5" />
+    
+    <Grid>
+        <StackPanel Orientation="Horizontal" MouseUp="StackPanel_MouseUp">
+            <CheckBox x:Name="Selected" VerticalAlignment="Center" Margin="5,0" Unchecked="Selected_Checked" Checked="Selected_Checked" />
+            <Ellipse x:Name="OnDot" Width="16" Height="16" Stroke="Black" StrokeThickness="2" Visibility="Collapsed" Margin="5" />
+            <Ellipse x:Name="OffDot" Width="16" Height="16" Stroke="Gray" StrokeThickness="2" Visibility="Collapsed" Margin="5" />
+            <Ellipse x:Name="UnreachableDot" Width="16" Height="16" Stroke="Black" StrokeThickness="2" StrokeDashArray="1.5" Visibility="Collapsed" Margin="5" />
             <TextBlock Text="{Binding Name, Mode=OneWay}" Style="{StaticResource Text}" />
         </StackPanel>
     </Grid>
+    
 </UserControl>

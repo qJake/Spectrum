@@ -21,29 +21,66 @@ namespace Spectrum.Controls
     /// </summary>
     public partial class LightStatus : UserControl
     {
-        protected Light light { get; set; }
+        public event Action<object> LightSelected;
+
+        private Light _Light;
+        public Light Light
+        {
+            get
+            {
+                return _Light;
+            }
+            protected set
+            {
+                _Light = value;
+                _Light.StateChanged += StateChanged;
+            }
+        }
 
         public LightStatus(Light l)
         {
             InitializeComponent();
 
-            light = l;
+            Light = l;
+            DataContext = Light;
 
-            DataContext = light;
-
-            HSBColor hsb;
-            switch (light.State.CurrentColorMode.ToLower())
+            // Set on/off state
+            if (!Light.State.IsReachable)
             {
-                case "ct":
-                    hsb = new HSBColor(MathEx.TranslateValue(light.State.ColorTemperature, 137, 500, 2000, 11500, true));
-                    break;
-                default:
-                    hsb = new HSBColor(l.State.Hue / 255, l.State.Saturation, l.State.Brightness);
-                    break;
+                UnreachableDot.Visibility = Visibility.Visible;
             }
+            else
+            {
+                if (Light.State.IsOn)
+                {
+                    var color = Light.State.Color;
+                    OnDot.Visibility = Visibility.Visible;
+                    OnDot.Fill = new SolidColorBrush(new Color() { A = 255, R = color.R, G = color.G, B = color.B });
+                }
+                else
+                {
+                    OffDot.Visibility = Visibility.Visible;
+                }
+            }
+        }
 
-            var color = hsb.Color;
-            OnDot.Fill = new SolidColorBrush(new Color() { A = 255, R = color.R, G = color.G, B = color.B });
+        private void Selected_Checked(object sender, RoutedEventArgs e)
+        {
+            if (LightSelected != null)
+            {
+                LightSelected(this);
+            }
+        }
+
+        private void StackPanel_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            Selected.IsChecked = !Selected.IsChecked;
+        }
+
+        public void StateChanged(object sender, LightState state)
+        {
+            var c = state.Color;
+            OnDot.Fill = new SolidColorBrush(new Color() { A = 255, R = c.R, G = c.G, B = c.B });
         }
     }
 }
