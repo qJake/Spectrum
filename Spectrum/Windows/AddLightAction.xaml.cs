@@ -10,26 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Spectrum.Windows;
 
-namespace Spectrum.Pages
+namespace Spectrum.Windows
 {
     /// <summary>
-    /// Interaction logic for Automate.xaml
+    /// Interaction logic for AddLightAction.xaml
     /// </summary>
-    public partial class Automate : UserControl
+    public partial class AddLightAction : Window
     {
-        public Automate()
+        public AddLightAction()
         {
             InitializeComponent();
-        }
-
-        private void AddTrigger_Click(object sender, RoutedEventArgs e)
-        {
-            AddTrigger triggerWindow = new AddTrigger();
-            triggerWindow.ShowDialog();
         }
     }
 }

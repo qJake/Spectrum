@@ -30,7 +30,7 @@
             </Border.BorderBrush>
             
             <StackPanel Orientation="Horizontal">
-                <Image Source="Resources/huelogo.png" Cursor="None" Width="123" Height="87" Panel.ZIndex="2" />
+                <Image Source="/Spectrum;component/Resources/huelogo.png" Cursor="None" Width="123" Height="87" Panel.ZIndex="2" />
 
                 <TextBlock x:Name="NavNow" MouseUp="NavNow_MouseUp"  Text="Now" Style="{StaticResource Text-Header-MainNav}" />
                 <TextBlock x:Name="NavSchedule" MouseUp="NavSchedule_MouseUp" Text="Schedule" Style="{StaticResource Text-Header-MainNav}" />

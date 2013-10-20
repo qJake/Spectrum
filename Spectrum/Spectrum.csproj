@@ -34,10 +34,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="SharpHue">
       <HintPath>..\..\SharpHue\SharpHue\bin\Debug\SharpHue.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
@@ -57,13 +62,32 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\StatePicker.xaml.cs">
+      <DependentUpon>StatePicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\ImageSourceConverter.cs" />
     <Compile Include="Converters\VisibilityConverter.cs" />
+    <Compile Include="Triggers\OnLock.cs" />
+    <Compile Include="Triggers\ITriggerSource.cs" />
+    <Compile Include="Triggers\OnUnlock.cs" />
     <Compile Include="Utilities\MathEx.cs" />
     <Page Include="Controls\LightStatus.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Main.xaml">
+    <Page Include="Controls\StatePicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AddLightAction.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AddTrigger.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Main.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -74,7 +98,13 @@
     <Compile Include="Controls\LightStatus.xaml.cs">
       <DependentUpon>LightStatus.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Main.xaml.cs">
+    <Compile Include="Windows\AddLightAction.xaml.cs">
+      <DependentUpon>AddLightAction.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\AddTrigger.xaml.cs">
+      <DependentUpon>AddTrigger.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -129,6 +159,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -140,6 +171,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\huelogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Unlock.png" />
+    <Resource Include="Resources\Icons\Lock.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
