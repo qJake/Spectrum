@@ -3,22 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:this="clr-namespace:Spectrum"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
+    <UserControl.Resources>
+        <this:VisibilityConverter x:Key="VC" />
+        <this:InverseVisibilityConverter x:Key="IVC" />
+    </UserControl.Resources>
+    <Grid>        
         <StackPanel Orientation="Horizontal">
-            <TextBlock Style="{StaticResource Text}">
-                <Run Text="["
-                /><Run Text="{Binding ID, Mode=OneWay}"
-                /><Run Text="]" />
-                <Run Text="{Binding Name, Mode=OneWay}" />
-                <Run Text="- HSB:" />
-                <Run Text="{Binding State.Hue, Mode=OneWay}" />
-                <Run Text="/" />
-                <Run Text="{Binding State.Saturation, Mode=OneWay}" />
-                <Run Text="/" />
-                <Run Text="{Binding State.Brightness, Mode=OneWay}" />
-            </TextBlock>
+            <Ellipse x:Name="OnDot" Width="16" Height="16" Stroke="Black" StrokeThickness="2" Visibility="{Binding State.IsOn, Converter={StaticResource VC}}" Margin="5" />
+            <Ellipse Width="16" Height="16" Stroke="Black" StrokeThickness="2" StrokeDashArray="1.5" Visibility="{Binding State.IsOn, Converter={StaticResource IVC}}" Margin="5" />
+            <TextBlock Text="{Binding Name, Mode=OneWay}" Style="{StaticResource Text}" />
         </StackPanel>
     </Grid>
 </UserControl>

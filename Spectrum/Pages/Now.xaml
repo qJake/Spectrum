@@ -4,11 +4,92 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             SnapsToDevicePixels="True"
+             d:DesignHeight="367" d:DesignWidth="658">
     <Grid>
-        <StackPanel>
-            <TextBlock Text="Lights" Style="{StaticResource Text-SubHeader}" />
-            <StackPanel x:Name="LightContainer" />
-        </StackPanel>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer>
+            <StackPanel>
+                <TextBlock Text="Lights" Style="{StaticResource Text-SubHeader}" />
+                <StackPanel x:Name="LightContainer" />
+            </StackPanel>
+        </ScrollViewer>
+        
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Rectangle x:Name="SelectorCT" Margin="30" MouseUp="SelectorCT_MouseUp">
+                <Rectangle.Fill>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <LinearGradientBrush.GradientStops>
+                            <GradientStopCollection>
+                                <GradientStop Color="#ff8d0b" Offset="0" />
+                                <GradientStop Color="#ffffff" Offset="0.5" />
+                                <GradientStop Color="#cddcff" Offset="1" />
+                            </GradientStopCollection>
+                        </LinearGradientBrush.GradientStops>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            
+            <Rectangle Grid.Column="1" x:Name="SelectorRGB" Margin="30">
+                <Rectangle.Fill>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <LinearGradientBrush.GradientStops>
+                            <GradientStopCollection>
+                                <GradientStop Color="Red" Offset="0" />
+                                <GradientStop Color="Orange" Offset="0.125" />
+                                <GradientStop Color="Yellow" Offset="0.25" />
+                                <GradientStop Color="Green" Offset="0.375" />
+                                <GradientStop Color="Turquoise" Offset="0.5" />
+                                <GradientStop Color="Blue" Offset="0.625" />
+                                <GradientStop Color="Indigo" Offset="0.75" />
+                                <GradientStop Color="Violet" Offset="0.875" />
+                                <GradientStop Color="red" Offset="1" />
+                            </GradientStopCollection>
+                        </LinearGradientBrush.GradientStops>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Grid.Column="1" x:Name="Saturation" Margin="30" MouseUp="Saturation_MouseUp">
+                <Rectangle.Fill>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <LinearGradientBrush.GradientStops>
+                            <GradientStopCollection>
+                                <GradientStop Color="Transparent" Offset="0" />
+                                <GradientStop Color="White" Offset="1" />
+                            </GradientStopCollection>
+                        </LinearGradientBrush.GradientStops>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+
+            <Rectangle Grid.Column="2" x:Name="Brightness" Margin="30">
+                <Rectangle.Fill>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <LinearGradientBrush.GradientStops>
+                            <GradientStopCollection>
+                                <GradientStop x:Name="BriTop" Color="Transparent" Offset="0" />
+                                <GradientStop Color="Black" Offset="1" />
+                            </GradientStopCollection>
+                        </LinearGradientBrush.GradientStops>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+        </Grid>
     </Grid>
 </UserControl>
