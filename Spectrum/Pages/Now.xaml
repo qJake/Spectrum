@@ -17,11 +17,10 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <TextBlock Text="Lights" Style="{StaticResource Text-SubHeader}" />
-                <StackPanel x:Name="LightContainer" />
+                <this:LightSelector x:Name="LightSelector" />
             </StackPanel>
         </ScrollViewer>
         
-
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />

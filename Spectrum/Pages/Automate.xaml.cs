@@ -28,8 +28,8 @@ namespace Spectrum.Pages
 
         private void AddTrigger_Click(object sender, RoutedEventArgs e)
         {
-            AddTrigger triggerWindow = new AddTrigger();
-            triggerWindow.ShowDialog();
+            var definitionWindow = new AddAutomationDefinition();
+            definitionWindow.ShowDialog();
         }
     }
 }

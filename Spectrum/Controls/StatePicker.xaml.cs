@@ -23,6 +23,8 @@ namespace Spectrum
     {
         public event Action<object, LightStateBuilder> StatePicked;
 
+        public LightStateBuilder SelectedState { get; protected set; }
+
         private Style SelectorActive;
         private Style SelectorInactive;
 
@@ -30,10 +32,12 @@ namespace Spectrum
         {
             InitializeComponent();
 
+            SelectedState = null;
+
             SelectorActive = FindResource("Text-Selector-Active") as Style;
             SelectorInactive = FindResource("Text-Selector-Inactive") as Style;
 
-            SetMode(true);
+            SetMode(PickerState.RGB);
         }
 
         private void SelectorRGB_MouseUp(object sender, MouseButtonEventArgs e)
@@ -47,6 +51,7 @@ namespace Spectrum
             BriTop.Color = new Color() { A = 255, R = color.Color.R, G = color.Color.G, B = color.Color.B };
 
             var lsb = new LightStateBuilder()
+                          .TurnOn()
                           .Hue((ushort)(color.H * 255))
                           .Saturation((byte)color.S)
                           .Brightness((byte)color.B);
@@ -66,44 +71,68 @@ namespace Spectrum
             BriTop.Color = new Color() { A = 255, R = color.Color.R, G = color.Color.G, B = color.Color.B };
 
             var lsb = new LightStateBuilder()
+                          .TurnOn()
                           .ColorTemperature((ushort)ct);
 
             OnStatePicked(lsb);
         }
 
         // TODO: Change this to an Enum or something like that
-        private void SetMode(bool isRgb)
+        private void SetMode(PickerState state)
         {
-            if (isRgb)
+            switch (state)
             {
-                SelectorCT.Visibility = Visibility.Collapsed;
-                SelectorRGB.Visibility = Visibility.Visible;
+                case PickerState.RGB:
+                    SelectorCT.Visibility = Visibility.Collapsed;
+                    SelectorRGB.Visibility = Visibility.Visible;
+                    Brightness.Visibility = Visibility.Visible;
 
-                OptionRGB.Style = SelectorActive;
-                OptionCT.Style = SelectorInactive;
-            }
-            else
-            {
-                SelectorCT.Visibility = Visibility.Visible;
-                SelectorRGB.Visibility = Visibility.Collapsed;
+                    OptionRGB.Style = SelectorActive;
+                    OptionCT.Style = SelectorInactive;
+                    OptionOff.Style = SelectorInactive;
+                    break;
 
-                OptionRGB.Style = SelectorInactive;
-                OptionCT.Style = SelectorActive;
+                case PickerState.CT:
+                    SelectorCT.Visibility = Visibility.Visible;
+                    SelectorRGB.Visibility = Visibility.Collapsed;
+                    Brightness.Visibility = Visibility.Visible;
+
+                    OptionRGB.Style = SelectorInactive;
+                    OptionCT.Style = SelectorActive;
+                    OptionOff.Style = SelectorInactive;
+                    break;
+
+                case PickerState.Off:
+                    SelectorCT.Visibility = Visibility.Collapsed;
+                    SelectorRGB.Visibility = Visibility.Collapsed;
+                    Brightness.Visibility = Visibility.Collapsed;
+
+                    OptionRGB.Style = SelectorInactive;
+                    OptionCT.Style = SelectorInactive;
+                    OptionOff.Style = SelectorActive;
+                    break;
             }
         }
 
         private void OptionRGB_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            SetMode(true);
+            SetMode(PickerState.RGB);
         }
 
         private void OptionCT_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            SetMode(false);
+            SetMode(PickerState.CT);
+        }
+
+        private void OptionOff_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            SetMode(PickerState.Off);
+            OnStatePicked(new LightStateBuilder().TurnOff());
         }
 
         private void OnStatePicked(LightStateBuilder lsb)
         {
+            SelectedState = lsb;
             if (StatePicked != null)
             {
                 StatePicked(this, lsb);

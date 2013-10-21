@@ -62,15 +62,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\LightSelector.xaml.cs">
+      <DependentUpon>LightSelector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\StatePicker.xaml.cs">
       <DependentUpon>StatePicker.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\LSBColorConverter.cs" />
     <Compile Include="Converters\ImageSourceConverter.cs" />
     <Compile Include="Converters\VisibilityConverter.cs" />
+    <Compile Include="Data Objects\AutomationAction.cs" />
+    <Compile Include="Enums\PickerState.cs" />
     <Compile Include="Triggers\OnLock.cs" />
     <Compile Include="Triggers\ITriggerSource.cs" />
     <Compile Include="Triggers\OnUnlock.cs" />
     <Compile Include="Utilities\MathEx.cs" />
+    <Page Include="Controls\LightSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\LightStatus.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -83,7 +93,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\AddTrigger.xaml">
+    <Page Include="Windows\AddAutomationDefinition.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -101,8 +111,8 @@
     <Compile Include="Windows\AddLightAction.xaml.cs">
       <DependentUpon>AddLightAction.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\AddTrigger.xaml.cs">
-      <DependentUpon>AddTrigger.xaml</DependentUpon>
+    <Compile Include="Windows\AddAutomationDefinition.xaml.cs">
+      <DependentUpon>AddAutomationDefinition.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
