@@ -21,6 +21,8 @@ namespace Spectrum.Pages
     /// </summary>
     public partial class Automate : UserControl
     {
+        public List<AutomationAction> Actions;
+
         public Automate()
         {
             InitializeComponent();
@@ -29,7 +31,12 @@ namespace Spectrum.Pages
         private void AddTrigger_Click(object sender, RoutedEventArgs e)
         {
             var definitionWindow = new AddAutomationDefinition();
-            definitionWindow.ShowDialog();
+            var res = definitionWindow.ShowDialog();
+
+            if (res.HasValue && res.Value)
+            {
+                // Load automation definition properties
+            }
         }
     }
 }

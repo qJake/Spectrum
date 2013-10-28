@@ -14,7 +14,19 @@ namespace Spectrum.Windows
         [ImportMany(typeof(ITriggerSource))]
         private List<ITriggerSource> Sources = new List<ITriggerSource>();
 
-        private List<AutomationAction> Actions { get; set; }
+        public ITriggerSource SelectedSource
+        {
+            get
+            {
+                if (SourceList.SelectedIndex == -1 || SourceList.SelectedIndex >= Sources.Count)
+                {
+                    return null;
+                }
+                return Sources[SourceList.SelectedIndex];
+            }
+        }
+
+        public List<AutomationAction> Actions { get; private set; }
 
         public AddAutomationDefinition()
         {
@@ -46,6 +58,16 @@ namespace Spectrum.Windows
                 ActionList.ItemsSource = null;
                 ActionList.ItemsSource = Actions;
             }
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
         }
     }
 }
